@@ -24,7 +24,7 @@ class ProviderModule {
     @Provides
     fun provideConfigRetrofit(): Retrofit {
         val gson = GsonBuilder().setLenient().create()
-        return Retrofit.Builder().baseUrl("https://")
+        return Retrofit.Builder().baseUrl("https://dummy.com")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(HttpConfiguration.getClient(getContext()).build())
