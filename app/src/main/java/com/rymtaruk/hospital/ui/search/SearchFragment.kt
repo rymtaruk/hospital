@@ -56,7 +56,7 @@ class SearchFragment : DialogFragment() {
         arguments?.let {
             this.viewModelFactory = it.getSerializable("FACTORY") as ViewModelFactory
         }
-        setStyle(STYLE_NO_TITLE, R.style.DialogTheme);
+        setStyle(STYLE_NO_TITLE, R.style.Theme_Hospital);
     }
 
     override fun onCreateView(
