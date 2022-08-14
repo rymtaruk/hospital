@@ -1,11 +1,6 @@
 package com.rymtaruk.hospital.ui.search
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rymtaruk.core.di.util.ViewModelFactory
 import com.rymtaruk.hospital.R
 import com.rymtaruk.hospital.databinding.SearchFragmentBinding
+
 
 class SearchFragment : DialogFragment() {
     private lateinit var viewModel: SearchViewModel
@@ -36,10 +33,6 @@ class SearchFragment : DialogFragment() {
             return _adapterSearch as SearchAdapter
         }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
-
     companion object {
         fun newInstance(viewModelFactory: ViewModelFactory): SearchFragment {
             val searchFragment = SearchFragment().apply {
@@ -56,7 +49,7 @@ class SearchFragment : DialogFragment() {
         arguments?.let {
             this.viewModelFactory = it.getSerializable("FACTORY") as ViewModelFactory
         }
-        setStyle(STYLE_NO_TITLE, R.style.Theme_Hospital);
+        setStyle(STYLE_NO_TITLE, R.style.Theme_Hospital)
     }
 
     override fun onCreateView(

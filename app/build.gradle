@@ -79,4 +79,7 @@ dependencies {
 
     //Core Module
     implementation project(path: ':core')
+
+    //Chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

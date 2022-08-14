@@ -1,7 +1,5 @@
 package com.rymtaruk.hospital.ui
 
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,8 +12,10 @@ import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(private val hospitalRepository: HospitalRepository) : BaseViewModel() {
     private val _responseCovidData = MutableLiveData<CovidData>()
+    private val _showContent = MutableLiveData<Int>()
 
     val responseCovidData: LiveData<CovidData> get() = _responseCovidData
+    val showContent: LiveData<Int> get() = _showContent
 
     init {
         loadData()
@@ -27,15 +27,15 @@ class HomeViewModel @Inject constructor(private val hospitalRepository: Hospital
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    _defaultLoading.value = View.VISIBLE
+                    loadingState.value = View.VISIBLE
+                    _showContent.value = View.GONE
                 }
                 .doAfterTerminate {
-                    _defaultLoading.value = View.GONE
+                    loadingState.value = View.GONE
+                    _showContent.value = View.VISIBLE
                 }
                 .onErrorComplete(this::errorHandler)
-                .subscribe {
-                    _responseCovidData.value = it
-                }
+                .subscribe(_responseCovidData::setValue)
         )
     }
 }

@@ -7,18 +7,22 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
 import java.net.ConnectException
+import java.net.UnknownHostException
 
 open class BaseViewModel : ViewModel() {
     private val _subscribe = CompositeDisposable()
     private var _defaultError: MutableLiveData<String> = MutableLiveData()
-    var _defaultLoading: MutableLiveData<Int> = MutableLiveData()
+    protected var loadingState: MutableLiveData<Int> = MutableLiveData()
 
-    val defaultLoading: LiveData<Int> get() = _defaultLoading
+    val defaultLoading: LiveData<Int> get() = loadingState
     val defaultError: LiveData<String> get() = _defaultError
 
     protected open fun errorHandler(e: Throwable?): Boolean {
         when (e) {
             is ConnectException -> {
+                _defaultError.value = "No Connection"
+            }
+            is UnknownHostException -> {
                 _defaultError.value = "No Connection"
             }
             is HttpException -> {

@@ -32,13 +32,13 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_edit_text"
                 android:hint="Search ..."
-                android:importantForAutofill="no"
                 android:paddingStart="22dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="22dp"
                 android:paddingBottom="8dp"
+                android:imeOptions="actionGo"
                 android:textSize="16sp"
-                tools:ignore="HardcodedText,TextFields" />
+                tools:ignore="Autofill,HardcodedText,TextFields" />
 
         </LinearLayout>
 

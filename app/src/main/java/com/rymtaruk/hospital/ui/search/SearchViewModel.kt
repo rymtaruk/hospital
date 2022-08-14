@@ -26,10 +26,10 @@ class SearchViewModel @Inject constructor(private val hospitalRepository: Hospit
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
-                    _defaultLoading.value = View.VISIBLE
+                    loadingState.value = View.VISIBLE
                 }
                 .doAfterTerminate {
-                    _defaultLoading.value = View.GONE
+                    loadingState.value = View.GONE
                 }
                 .onErrorComplete(this::errorHandler)
                 .subscribe{
