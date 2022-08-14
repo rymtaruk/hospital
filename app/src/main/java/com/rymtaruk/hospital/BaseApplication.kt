@@ -14,7 +14,7 @@ class BaseApplication : DaggerApplication(), CoreComponentProvider {
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         ProviderModule.context = applicationContext
         return DaggerAppComponent.builder().application(this).coreComponent(provideCoreComponent())
-            .build()
+            .build().apply { inject(this@BaseApplication) }
     }
 
     override fun provideCoreComponent(): CoreComponent {

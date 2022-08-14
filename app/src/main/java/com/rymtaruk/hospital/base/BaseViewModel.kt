@@ -10,10 +10,10 @@ import java.net.ConnectException
 
 open class BaseViewModel : ViewModel() {
     private val _subscribe = CompositeDisposable()
-    protected var _defaultLoading: MutableLiveData<Boolean> = MutableLiveData()
-    protected var _defaultError: MutableLiveData<String> = MutableLiveData()
+    private var _defaultError: MutableLiveData<String> = MutableLiveData()
+    var _defaultLoading: MutableLiveData<Int> = MutableLiveData()
 
-    val defaultLoading: LiveData<Boolean> get() = _defaultLoading
+    val defaultLoading: LiveData<Int> get() = _defaultLoading
     val defaultError: LiveData<String> get() = _defaultError
 
     protected open fun errorHandler(e: Throwable?): Boolean {

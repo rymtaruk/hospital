@@ -1,21 +1,19 @@
-package com.rymtaruk.hospital.ui
+package com.rymtaruk.hospital.ui.search
 
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.rymtaruk.hospital.api.repositories.HospitalRepository
 import com.rymtaruk.hospital.base.BaseViewModel
-import com.rymtaruk.hospital.model.CovidData
+import com.rymtaruk.hospital.model.HospitalData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val hospitalRepository: HospitalRepository) : BaseViewModel() {
-    private val _responseCovidData = MutableLiveData<CovidData>()
+class SearchViewModel @Inject constructor(private val hospitalRepository: HospitalRepository): BaseViewModel() {
+    private val _responseHospitalData = MutableLiveData<MutableList<HospitalData>>()
 
-    val responseCovidData: LiveData<CovidData> get() = _responseCovidData
+    val responseHospitalData: LiveData<MutableList<HospitalData>> get() = _responseHospitalData
 
     init {
         loadData()
@@ -23,7 +21,8 @@ class HomeViewModel @Inject constructor(private val hospitalRepository: Hospital
 
     private fun loadData() {
         onDispose(
-            hospitalRepository.getCovid().toMaybe()
+            hospitalRepository.getHospital()
+                .toMaybe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe {
@@ -33,8 +32,8 @@ class HomeViewModel @Inject constructor(private val hospitalRepository: Hospital
                     _defaultLoading.value = View.GONE
                 }
                 .onErrorComplete(this::errorHandler)
-                .subscribe {
-                    _responseCovidData.value = it
+                .subscribe{
+                    _responseHospitalData.value = it
                 }
         )
     }
