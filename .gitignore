@@ -16,3 +16,7 @@ local.properties
 *.idea
 */.idea
 .idea/*
+*/release
+app/release/*
+*/debug
+*.apk
